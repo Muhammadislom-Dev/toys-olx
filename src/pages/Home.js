@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Slider from "react-slick";
-import AOS from "aos";
 import { FormattedMessage } from "react-intl";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
