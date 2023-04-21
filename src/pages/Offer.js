@@ -6,10 +6,8 @@ import axios from "axios";
 import { Context } from "../components/Wrapper";
 import ReactTooltip from "react-tooltip";
 import { FormattedMessage } from "react-intl";
-import Barcode from "react-barcode";
 
 function Offer() {
-
   const context = useContext(Context);
   const [rest, setrest] = useState([]);
   useEffect(() => {
@@ -36,8 +34,7 @@ function Offer() {
             infiniteLoop
             useKeyboardArrows
             transitionTime={300}
-            width="600px"
-          >
+            width="600px">
             <div className="slide-holder">
               <img
                 className={"img__one"}
@@ -53,7 +50,7 @@ function Offer() {
             <div className="slide-holder">
               <img
                 className={"img__one"}
-                src={"https://api.dev.therepublicoftoys.uz" + offer?.img3  }
+                src={"https://api.dev.therepublicoftoys.uz" + offer?.img3}
               />
             </div>
           </Carousel>
@@ -66,18 +63,13 @@ function Offer() {
               ? offer?.title_ru
               : offer?.title_en}
           </h1>
-        
+
           <table className="table table-striped">
             <tbody>
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.1" />
-                  <img
-                    data-tip="test"
-                    data-for="test"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
+
                   <ReactTooltip id="test">
                     {" "}
                     <FormattedMessage id="prod.1" />
@@ -87,38 +79,9 @@ function Offer() {
               </tr>
               <tr>
                 <td className="color-grey">
-                  <FormattedMessage id="prod.2" />
-                  <img
-                    data-tip="test1"
-                    data-for="test1"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
-                  <ReactTooltip id="test1">
-                    {" "}
-                    <FormattedMessage id="prod.2" />
-                  </ReactTooltip>
-                </td>
-                <td style={{ padding: "0px" }}>
-                  <Barcode
-                    height="20"
-                    width="1"
-                    fontSize="10px"
-                    value={offer?.qr}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="color-grey">
                   <FormattedMessage id="prod.3" />
-                  <img
-                    data-tip="test2"
-                    data-for="test2"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
+
                   <ReactTooltip id="test2">
-                    {" "}
                     <FormattedMessage id="prod.3" />
                   </ReactTooltip>
                 </td>
@@ -127,12 +90,6 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.4" />{" "}
-                  <img
-                    data-tip="test3"
-                    data-for="test3"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
                   <ReactTooltip id="test3">
                     {" "}
                     <FormattedMessage id="prod.4" />
@@ -149,12 +106,6 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.5" />{" "}
-                  <img
-                    data-tip="test4"
-                    data-for="test4"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
                   <ReactTooltip id="test4">
                     {" "}
                     <FormattedMessage id="prod.5" />
@@ -165,12 +116,6 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.6" />{" "}
-                  <img
-                    data-tip="test6"
-                    data-for="test6"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
                   <ReactTooltip id="test6">
                     {" "}
                     <FormattedMessage id="prod.6" />
@@ -187,12 +132,6 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.7" />{" "}
-                  <img
-                    data-tip="test7"
-                    data-for="test7"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
                   <ReactTooltip id="test7">
                     {" "}
                     <FormattedMessage id="prod.7" />
@@ -203,12 +142,7 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.8" />
-                  <img
-                    data-tip="test8"
-                    data-for="test8"
-                    src="https://www.polesie-toys.com/static/img/icons/question.svg"
-                    alt="ques"
-                  />
+
                   <ReactTooltip id="test8">
                     {" "}
                     <FormattedMessage id="prod.8" />
@@ -223,28 +157,7 @@ function Offer() {
                     : ""}
                 </td>
               </tr>
-              <tr>
-                <td className="color-grey">
-                  {" "}
-                  <FormattedMessage id="prod.9" />
-                </td>
-                <td>
-                  {offer?.file ? (
-                    <a
-                      className="btn btn-primary"
-                      href={"https://api.dev.therepublicoftoys.uz//" + offer?.file}
-                      download
-                      target="_blank"
-                    >
-                      <FormattedMessage id="prod.10" />
-                    </a>
-                  ) : (
-                    <a className="btn btn-primary" aria-disabled>
-                      <FormattedMessage id="prod.10" />
-                    </a>
-                  )}
-                </td>
-              </tr>
+
               <tr>
                 <td>
                   <button>
