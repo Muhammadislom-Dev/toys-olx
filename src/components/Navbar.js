@@ -1,14 +1,13 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
-import Bscard from "../img/BsCard";
-import { Context } from "../context/AddCard";
-import { useContext } from "react";
+import LikeModal from "../Modal/LikeModal";
+import BuyModal from "../Modal/BuyModal";
+
 function Navbar() {
   let location = useLocation();
   const homeClass = location.pathname === "/" ? "active" : "";
   const productClass = location.pathname === "/product" ? "active" : "";
-  const { orderToys, setOrderToys } = useContext(Context);
 
   return (
     <div className="nav">
@@ -40,28 +39,10 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <button className="header--open">
-              <Bscard />
-              {orderToys.length > 0 && (
-                <p className="basket__box">
-                  <span style={{ fontSize: "18px" }} className="counts">
-                    {orderToys.length}
-                  </span>
-                </p>
-              )}
-            </button>
+            <BuyModal />
           </li>
           <li>
-            <button className="header--open">
-              <FcLike />
-              {orderToys.length > 0 && (
-                <p className="basket__box">
-                  <span style={{ fontSize: "18px" }} className="counts">
-                    {orderToys.length}
-                  </span>
-                </p>
-              )}
-            </button>
+            <LikeModal />
           </li>
         </ul>
         <div className="hamb">

@@ -3,11 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import Wrapper from "./components/Wrapper";
 import { Provider } from "./context/AddCard";
+import { LikeProvider } from "./context/LikeCard";
 ReactDOM.render(
   <React.StrictMode>
     <Provider>
       <Wrapper>
-        <App />
+        <LikeProvider>
+          <App />
+        </LikeProvider>
       </Wrapper>
     </Provider>
   </React.StrictMode>,

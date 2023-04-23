@@ -7,11 +7,15 @@ import { Context } from "../components/Wrapper";
 import ReactTooltip from "react-tooltip";
 import { FormattedMessage } from "react-intl";
 import { Context as AContext } from "../context/AddCard";
+import { LikeContext } from "../context/LikeCard";
 
 function Offer() {
   const context = useContext(Context);
   const [rest, setrest] = useState([]);
   const { orderToys, setOrderToys } = useContext(AContext);
+  const { likeToys, setLikeToys } = useContext(LikeContext);
+
+  
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
@@ -29,7 +33,7 @@ function Offer() {
   const addCardClick = () => {
     const findToys = rest.find((pro) => pro?.id === offer?.id);
     findToys.count = findToys?.count ? findToys?.count + 1 : 1;
-    const uniqueArr = [...new Set([...orderToys, findToys])];
+    const uniqueArr = [...new Set([...likeToys, findToys])];
     setOrderToys(uniqueArr);
   };
 
@@ -37,7 +41,7 @@ function Offer() {
     const findToys = rest.find((pro) => pro?.id === offer?.id);
     findToys.count = findToys?.count ? findToys?.count + 1 : 1;
     const uniqueArr = [...new Set([...orderToys, findToys])];
-    setOrderToys(uniqueArr);
+    setLikeToys(uniqueArr);
   };
 
   return (
