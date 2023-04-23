@@ -6,10 +6,12 @@ import axios from "axios";
 import { Context } from "../components/Wrapper";
 import ReactTooltip from "react-tooltip";
 import { FormattedMessage } from "react-intl";
+import { Context as AContext } from "../context/AddCard";
 
 function Offer() {
   const context = useContext(Context);
   const [rest, setrest] = useState([]);
+  const { orderFoods, setOrderFoods } = useContext(AContext);
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
@@ -23,6 +25,13 @@ function Offer() {
   const activeIds = [Number(id)];
   const result = rest.filter(({ id }) => activeIds.includes(id));
   const offer = result[0];
+
+  const addCardClick = () => {
+    const foundFood = rest.find((pro) => pro?.id === offer?.id);
+    foundFood.count = foundFood?.count ? foundFood?.count + 1 : 1;
+    const uniqueArr = [...new Set([...orderFoods, foundFood])];
+    setOrderFoods(uniqueArr);
+  };
 
   return (
     <>
@@ -69,9 +78,7 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.1" />
-
                   <ReactTooltip id="test">
-                    {" "}
                     <FormattedMessage id="prod.1" />
                   </ReactTooltip>
                 </td>
@@ -142,9 +149,7 @@ function Offer() {
               <tr>
                 <td className="color-grey">
                   <FormattedMessage id="prod.8" />
-
                   <ReactTooltip id="test8">
-                    {" "}
                     <FormattedMessage id="prod.8" />
                   </ReactTooltip>
                 </td>
@@ -160,7 +165,7 @@ function Offer() {
 
               <tr>
                 <td>
-                  <button>
+                  <button onClick={addCardClick}>
                     {context.locale === "uz"
                       ? "Buyurtma"
                       : context.locale === "ru"

@@ -1,10 +1,14 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
+import Bscard from "../img/BsCard";
+import { Context } from "../context/AddCard";
+import { useContext } from "react";
 function Navbar() {
   let location = useLocation();
   const homeClass = location.pathname === "/" ? "active" : "";
   const productClass = location.pathname === "/product" ? "active" : "";
+  const { orderFoods, setOrderFoods } = useContext(Context);
 
   return (
     <div className="nav">
@@ -34,6 +38,16 @@ function Navbar() {
                 99 111 17 33
               </button>
             </a>
+          </li>
+          <li>
+            <button className="header--open">
+              <Bscard />
+              {orderFoods.length > 0 && (
+                <p className="basket__box">
+                  <span className="counts">{orderFoods.length}</span>
+                </p>
+              )}
+            </button>
           </li>
         </ul>
         <div className="hamb">
