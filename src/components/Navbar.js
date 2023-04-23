@@ -8,7 +8,7 @@ function Navbar() {
   let location = useLocation();
   const homeClass = location.pathname === "/" ? "active" : "";
   const productClass = location.pathname === "/product" ? "active" : "";
-  const { orderFoods, setOrderFoods } = useContext(Context);
+  const { orderToys, setOrderToys } = useContext(Context);
 
   return (
     <div className="nav">
@@ -42,9 +42,23 @@ function Navbar() {
           <li>
             <button className="header--open">
               <Bscard />
-              {orderFoods.length > 0 && (
-                <p  className="basket__box">
-                  <span style={{fontSize:"18px"}} className="counts">{orderFoods.length}</span>
+              {orderToys.length > 0 && (
+                <p className="basket__box">
+                  <span style={{ fontSize: "18px" }} className="counts">
+                    {orderToys.length}
+                  </span>
+                </p>
+              )}
+            </button>
+          </li>
+          <li>
+            <button className="header--open">
+              <FcLike />
+              {orderToys.length > 0 && (
+                <p className="basket__box">
+                  <span style={{ fontSize: "18px" }} className="counts">
+                    {orderToys.length}
+                  </span>
                 </p>
               )}
             </button>

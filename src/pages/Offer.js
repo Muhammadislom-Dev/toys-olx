@@ -11,7 +11,7 @@ import { Context as AContext } from "../context/AddCard";
 function Offer() {
   const context = useContext(Context);
   const [rest, setrest] = useState([]);
-  const { orderFoods, setOrderFoods } = useContext(AContext);
+  const { orderToys, setOrderToys } = useContext(AContext);
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
@@ -27,10 +27,17 @@ function Offer() {
   const offer = result[0];
 
   const addCardClick = () => {
-    const foundFood = rest.find((pro) => pro?.id === offer?.id);
-    foundFood.count = foundFood?.count ? foundFood?.count + 1 : 1;
-    const uniqueArr = [...new Set([...orderFoods, foundFood])];
-    setOrderFoods(uniqueArr);
+    const findToys = rest.find((pro) => pro?.id === offer?.id);
+    findToys.count = findToys?.count ? findToys?.count + 1 : 1;
+    const uniqueArr = [...new Set([...orderToys, findToys])];
+    setOrderToys(uniqueArr);
+  };
+
+  const likeCardClick = () => {
+    const findToys = rest.find((pro) => pro?.id === offer?.id);
+    findToys.count = findToys?.count ? findToys?.count + 1 : 1;
+    const uniqueArr = [...new Set([...orderToys, findToys])];
+    setOrderToys(uniqueArr);
   };
 
   return (
@@ -173,7 +180,15 @@ function Offer() {
                       : "Order"}
                   </button>
                 </td>
-                <td></td>
+                <td>
+                  <button onClick={likeCardClick}>
+                    {context.locale === "uz"
+                      ? "Like"
+                      : context.locale === "ru"
+                      ? "Like"
+                      : "Like"}
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>

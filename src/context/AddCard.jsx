@@ -4,9 +4,9 @@ import { createContext } from "react";
 const Context = createContext();
 
 function Provider({ children }) {
-  const [orderFoods, setOrderFoods] = useState([]);
+  const [orderToys, setOrderToys] = useState([]);
   return (
-    <Context.Provider value={{ orderFoods, setOrderFoods }}>
+    <Context.Provider value={{ orderToys, setOrderToys }}>
       {children}
     </Context.Provider>
   );
