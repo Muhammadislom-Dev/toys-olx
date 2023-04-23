@@ -43,8 +43,8 @@ function Navbar() {
             <button className="header--open">
               <Bscard />
               {orderFoods.length > 0 && (
-                <p className="basket__box">
-                  <span className="counts">{orderFoods.length}</span>
+                <p  className="basket__box">
+                  <span style={{fontSize:"18px"}} className="counts">{orderFoods.length}</span>
                 </p>
               )}
             </button>
