@@ -42,7 +42,6 @@ function BuyModal() {
     setCount(count);
   }
 
-  console.log(orderToys);
 
   return (
     <div>
