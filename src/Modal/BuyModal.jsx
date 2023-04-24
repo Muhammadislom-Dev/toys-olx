@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Context } from "../components/Wrapper";
 import { Context as AContext } from "../context/AddCard";
 import Bscard from "../img/BsCard";
+import { RiDeleteBinLine } from "react-icons/ri";
+import "./style.css";
 
 const style = {
   position: "absolute",
@@ -13,7 +15,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 700,
-  height: 420,
+  maxHeight: 420,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -26,6 +28,21 @@ function BuyModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  let [count, setCount] = useState(1);
+
+  function incrementCount() {
+    count = count - 0 + 1;
+    setCount(count);
+  }
+  function decrementCount() {
+    if (count <= 0) {
+      count = 1;
+    }
+    count = count - 1;
+    setCount(count);
+  }
+
+  console.log(orderToys);
 
   return (
     <div>
@@ -46,21 +63,48 @@ function BuyModal() {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description">
         <Box sx={style}>
-          {orderToys.map((evt) => (
-            <div className="like-list">
-              <img
-                className="like-img"
-                src={`https://api.dev.therepublicoftoys.uz${evt?.img1}`}
-              />
-              <h4>
-                {context.locale === "uz"
-                  ? evt?.title_uz
-                  : context.locale === "ru"
-                  ? evt?.title_ru
-                  : evt?.title_en}
-              </h4>
-            </div>
-          ))}
+          {orderToys.length > 0 ? (
+            <>
+              {orderToys.map((evt) => (
+                <div className="like-list">
+                  <img
+                    className="buy-img"
+                    src={`https://api.dev.therepublicoftoys.uz${evt?.img1}`}
+                  />
+                  <h4>
+                    {context.locale === "uz"
+                      ? evt?.title_uz
+                      : context.locale === "ru"
+                      ? evt?.title_ru
+                      : evt?.title_en}
+                  </h4>
+                  <div className="modal-blok">
+                    <button className="modal-plus" onClick={decrementCount}>
+                      -
+                    </button>
+                    <span className="modal-count">{count}</span>
+                    <button className="modal-plus" onClick={incrementCount}>
+                      +
+                    </button>
+                  </div>
+                  <p className="modal-price">
+                    {(evt.price * count).toFixed(1)} сум
+                  </p>
+                  <button
+                    className="modal-btn"
+                    onClick={() => {
+                      setOrderToys(
+                        orderToys.filter((toys) => toys.id !== evt.id)
+                      );
+                    }}>
+                    <RiDeleteBinLine />
+                  </button>
+                </div>
+              ))}
+            </>
+          ) : (
+            <p>Siz hali o'yinchoq buyurtma qilmadingiz!</p>
+          )}
         </Box>
       </Modal>
     </div>

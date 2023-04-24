@@ -1,0 +1,19 @@
+.buy-img {
+  width: 100px;
+  object-fit: contain;
+  height: 80px;
+}
+.modal-plus {
+  width: 50px;
+}
+
+.modal-blok {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-left: 15px;
+}
+
+.modal-btn {
+  font-size: 22px;
+}

@@ -15,7 +15,6 @@ function Offer() {
   const { orderToys, setOrderToys } = useContext(AContext);
   const { likeToys, setLikeToys } = useContext(LikeContext);
 
-  
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
@@ -157,23 +156,6 @@ function Offer() {
                 </td>
                 <td>{offer?.weight}</td>
               </tr>
-              <tr>
-                <td className="color-grey">
-                  <FormattedMessage id="prod.8" />
-                  <ReactTooltip id="test8">
-                    <FormattedMessage id="prod.8" />
-                  </ReactTooltip>
-                </td>
-                <td>
-                  {offer?.count}{" "}
-                  {context.locale === "uz"
-                    ? "ta"
-                    : context.locale === "ru"
-                    ? "шт"
-                    : ""}
-                </td>
-              </tr>
-
               <tr>
                 <td>
                   <button onClick={addCardClick}>
