@@ -3,8 +3,11 @@ import { Link, useLocation } from "react-router-dom";
 import { FormattedMessage } from "react-intl";
 import LikeModal from "../Modal/LikeModal";
 import BuyModal from "../Modal/BuyModal";
+import { Context } from "./Wrapper";
+import { useContext } from "react";
 
 function Navbar() {
+  const context = useContext(Context);
   let location = useLocation();
   const homeClass = location.pathname === "/" ? "active" : "";
   const productClass = location.pathname === "/product" ? "active" : "";
@@ -29,7 +32,13 @@ function Navbar() {
               <FormattedMessage id="nav.products" />
             </Link>
           </li>
-
+          <li>
+            <select value={context.locale} onChange={context.selectLanguage}>
+              <option value="uz">O'z</option>
+              <option value="ru">Ру</option>
+              <option value="en">En</option>
+            </select>
+          </li>
           <li>
             <a href="tel: +998712483494">
               <button style={{ borderRadius: ".6vw" }}>

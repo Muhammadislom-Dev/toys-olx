@@ -4,9 +4,9 @@ import { FormattedMessage } from "react-intl";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Product from "./Product";
 
 function Home() {
-
   const [Partner, setPartner] = React.useState([]);
   useEffect(() => {
     const axiosGet = async () => {
@@ -116,6 +116,8 @@ function Home() {
             </div>
           </Slider>
         </div>
+
+        <Product />
 
         <div id="showroom">
           <div className="farm">
