@@ -13,7 +13,7 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 700,
-  height: 420,
+  maxHeight: 420,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -47,21 +47,27 @@ function LikeModal() {
         aria-labelledby="keep-mounted-modal-title"
         aria-describedby="keep-mounted-modal-description">
         <Box sx={style}>
-          {likeToys.map((evt) => (
-            <div className="like-list">
-              <img
-                className="like-img"
-                src={`https://api.dev.therepublicoftoys.uz${evt?.img1}`}
-              />
-              <h4>
-                {context.locale === "uz"
-                  ? evt?.title_uz
-                  : context.locale === "ru"
-                  ? evt?.title_ru
-                  : evt?.title_en}
-              </h4>
-            </div>
-          ))}
+          {likeToys.length > 0 ? (
+            <>
+              {likeToys.map((evt) => (
+                <div className="like-list">
+                  <img
+                    className="like-img"
+                    src={`https://api.dev.therepublicoftoys.uz${evt?.img1}`}
+                  />
+                  <h4>
+                    {context.locale === "uz"
+                      ? evt?.title_uz
+                      : context.locale === "ru"
+                      ? evt?.title_ru
+                      : evt?.title_en}
+                  </h4>
+                </div>
+              ))}
+            </>
+          ) : (
+            <>Siz hali yoqtirgan o'yinchoqlariz ro'yhatiga qo'shmadingiz</>
+          )}
         </Box>
       </Modal>
     </div>

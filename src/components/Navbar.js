@@ -54,11 +54,6 @@ function Navbar() {
             <LikeModal />
           </li>
         </ul>
-        <div className="hamb">
-          <span>
-            <img src="/img/home/hamb.svg" alt="toys" />
-          </span>
-        </div>
       </nav>
     </div>
   );
