@@ -42,6 +42,7 @@ function BuyModal() {
     setCount(count);
   }
 
+  console.log(orderToys);
 
   return (
     <div>
@@ -66,10 +67,15 @@ function BuyModal() {
             <>
               {orderToys.map((evt) => (
                 <div className="like-list">
-                  <img
-                    className="buy-img"
-                    src={`https://api.dev.therepublicoftoys.uz${evt?.img1}`}
-                  />
+                  {evt?.product_images?.map((item) => (
+                    <img
+                      className="like-img"
+                      src={
+                        "http://206.189.128.106:4444/api/uploads/images/" +
+                        item.images_src
+                      }
+                    />
+                  ))}
                   <h4>
                     {context.locale === "uz"
                       ? evt?.title_uz

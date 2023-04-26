@@ -7,9 +7,11 @@ import axios from "axios";
 import Product from "./Product";
 import { Context } from "../components/Wrapper";
 import { useContext } from "react";
+import { useState } from "react";
 
 function Home() {
   const [Partner, setPartner] = React.useState([]);
+  const [logo, setLogo] = useState([]);
   let context = useContext(Context);
   useEffect(() => {
     const axiosGet = async () => {
@@ -42,6 +44,15 @@ function Home() {
       },
     ],
   };
+
+  useEffect(() => {
+    axios
+      .get("http://206.189.128.106:4444/api/clients")
+      .then((res) => setLogo(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(logo);
 
   return (
     <div className="home">
@@ -96,21 +107,18 @@ function Home() {
                     <hr />
                   </div>
                   <div className="product__body">
-                    <Slider {...settings3}>
-                      {Partner.map((item) => (
-                        <div className={"card__slide"}>
-                          <div className="card" data-aos="flip-left">
-                            <img
-                              src={
-                                "https://api.dev.therepublicoftoys.uz//" +
-                                item.img
-                              }
-                              alt="toys"
-                            />
-                          </div>
-                        </div>
-                      ))}
-                    </Slider>
+                    {logo.map((item) => (
+                      // <div className="card" data-aos="flip-left">
+                      <img
+                        src={
+                          "http://206.189.128.106:4444/api/uploads/images/" +
+                          item?.image_src
+                        }
+                        className="logo-img"
+                        alt="toys"
+                      />
+                      // </div>
+                    ))}
                   </div>
                 </div>
               </div>

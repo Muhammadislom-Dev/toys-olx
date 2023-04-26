@@ -12,34 +12,29 @@ import { LikeContext } from "../context/LikeCard";
 function Offer() {
   const context = useContext(Context);
   const [rest, setrest] = useState([]);
+  let { id } = useParams();
   const { orderToys, setOrderToys } = useContext(AContext);
   const { likeToys, setLikeToys } = useContext(LikeContext);
 
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
-        "https://api.dev.therepublicoftoys.uz/api/v1/offers"
+        "http://206.189.128.106:4444/api/products"
       );
-      setrest(response.data);
+      setrest(response?.data?.data?.find((evt) => evt?.id === id));
     };
     axiosGet();
   }, []);
-  let { id } = useParams();
-  const activeIds = [Number(id)];
-  const result = rest.filter(({ id }) => activeIds.includes(id));
-  const offer = result[0];
 
   const addCardClick = () => {
-    const findToys = rest.find((pro) => pro?.id === offer?.id);
-    findToys.count = findToys?.count ? findToys?.count + 1 : 1;
-    const uniqueArr = [...new Set([...likeToys, findToys])];
+    rest.count = rest?.count ? rest?.count + 1 : 1;
+    const uniqueArr = [...new Set([...likeToys, rest])];
     setOrderToys(uniqueArr);
   };
 
   const likeCardClick = () => {
-    const findToys = rest.find((pro) => pro?.id === offer?.id);
-    findToys.count = findToys?.count ? findToys?.count + 1 : 1;
-    const uniqueArr = [...new Set([...orderToys, findToys])];
+    rest.count = rest?.count ? rest?.count + 1 : 1;
+    const uniqueArr = [...new Set([...orderToys, rest])];
     setLikeToys(uniqueArr);
   };
 
@@ -54,35 +49,21 @@ function Offer() {
             useKeyboardArrows
             transitionTime={300}
             width="600px">
-            <div className="slide-holder">
-              <img
-                className={"img__one"}
-                src={"https://api.dev.therepublicoftoys.uz" + offer?.img1}
-              />
-            </div>
-            <div className="slide-holder">
-              <img
-                className={"img__one"}
-                src={"https://api.dev.therepublicoftoys.uz" + offer?.img2}
-              />
-            </div>
-            <div className="slide-holder">
-              <img
-                className={"img__one"}
-                src={"https://api.dev.therepublicoftoys.uz" + offer?.img3}
-              />
-            </div>
+            {rest?.product_images?.map((evt) => (
+              <div className="slide-holder">
+                <img
+                  className={"img__one"}
+                  src={
+                    "http://206.189.128.106:4444/api/uploads/images/" +
+                    evt.images_src
+                  }
+                />
+              </div>
+            ))}
           </Carousel>
         </div>
         <div className="item__offer sp__around">
-          <h1>
-            {context.locale === "uz"
-              ? offer?.title_uz
-              : context.locale === "ru"
-              ? offer?.title_ru
-              : offer?.title_en}
-          </h1>
-
+          <h1>{context.locale === "ru" ? rest?.title_ru : rest?.title_en}</h1>
           <table className="table table-striped">
             <tbody>
               <tr>
@@ -92,7 +73,7 @@ function Offer() {
                     <FormattedMessage id="prod.1" />
                   </ReactTooltip>
                 </td>
-                <td>{offer?.articul}</td>
+                <td>{rest?.articul}</td>
               </tr>
               <tr>
                 <td className="color-grey">
@@ -102,7 +83,7 @@ function Offer() {
                     <FormattedMessage id="prod.3" />
                   </ReactTooltip>
                 </td>
-                <td>{offer?.size_toy}</td>
+                <td>{rest?.package_size}</td>
               </tr>
               <tr>
                 <td className="color-grey">
@@ -112,13 +93,7 @@ function Offer() {
                     <FormattedMessage id="prod.4" />
                   </ReactTooltip>
                 </td>
-                <td>
-                  {context.locale === "uz"
-                    ? offer?.case_uz
-                    : context.locale === "ru"
-                    ? offer?.case_ru
-                    : offer?.case_en}{" "}
-                </td>
+                <td>{rest.toy_size}</td>
               </tr>
               <tr>
                 <td className="color-grey">
@@ -128,7 +103,7 @@ function Offer() {
                     <FormattedMessage id="prod.5" />
                   </ReactTooltip>
                 </td>
-                <td>{offer?.size_case}</td>
+                <td>{rest?.package_quantity}</td>
               </tr>
               <tr>
                 <td className="color-grey">
@@ -138,13 +113,7 @@ function Offer() {
                     <FormattedMessage id="prod.6" />
                   </ReactTooltip>
                 </td>
-                <td>
-                  {context.locale === "uz"
-                    ? offer?.casegroup_uz
-                    : context.locale === "ru"
-                    ? offer?.casegroup_ru
-                    : offer?.casegroup_en}{" "}
-                </td>
+                <td>{rest.type_of_packaging}</td>
               </tr>
               <tr>
                 <td className="color-grey">
@@ -154,25 +123,17 @@ function Offer() {
                     <FormattedMessage id="prod.7" />
                   </ReactTooltip>
                 </td>
-                <td>{offer?.weight}</td>
+                <td>{rest?.multipack_type}</td>
               </tr>
               <tr>
                 <td>
                   <button onClick={addCardClick}>
-                    {context.locale === "uz"
-                      ? "Buyurtma"
-                      : context.locale === "ru"
-                      ? "Заказать"
-                      : "Order"}
+                    {context.locale === "ru" ? "Заказать" : "Order"}
                   </button>
                 </td>
                 <td>
                   <button onClick={likeCardClick}>
-                    {context.locale === "uz"
-                      ? "Like"
-                      : context.locale === "ru"
-                      ? "Like"
-                      : "Like"}
+                    {context.locale === "ru" ? "Like" : "Like"}
                   </button>
                 </td>
               </tr>
