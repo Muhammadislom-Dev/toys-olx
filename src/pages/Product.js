@@ -7,12 +7,14 @@ import { Context } from "../components/Wrapper";
 import { FormattedMessage } from "react-intl";
 function Product() {
   const [rest, setrest] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [clickId, setClickId] = useState("");
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
-        "https://api.dev.therepublicoftoys.uz/api/v1/offers"
+        "http://206.189.128.106:4444/api/products"
       );
-      setrest(response.data);
+      setrest(response?.data?.data);
     };
     axiosGet();
   }, []);
@@ -22,6 +24,20 @@ function Product() {
   const toggleClass = () => {
     setActive(!isActive);
   };
+
+  useEffect(() => {
+    const axiosCategory = async () => {
+      const response = await axios.get(
+        "http://206.189.128.106:4444/api/categories"
+      );
+      setCategory(response?.data?.data);
+    };
+    axiosCategory();
+  }, []);
+
+  console.log(rest);
+
+
   return (
     <Tabs defaultIndex={localStorage.getItem("activetoy")}>
       <div className="container products">
@@ -37,252 +53,46 @@ function Product() {
             <FormattedMessage id="nav.products" />
           </h1>
           <TabList className="tabs">
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 0);
-                }}>
-                <FormattedMessage id="cotg.1" />
-              </button>
-            </Tab>
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 1);
-                }}>
-                <FormattedMessage id="cotg.2" />
-              </button>
-            </Tab>
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 2);
-                }}>
-                <FormattedMessage id="cotg.3" />
-              </button>
-            </Tab>
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 3);
-                }}>
-                <FormattedMessage id="cotg.4" />
-              </button>
-            </Tab>
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 4);
-                }}>
-                <FormattedMessage id="cotg.5" />
-              </button>
-            </Tab>
-            <Tab>
-              <button
-                onClick={() => {
-                  toggleClass();
-                  localStorage.setItem("activetoy", 5);
-                }}>
-                <FormattedMessage id="cotg.6" />
-              </button>
-            </Tab>
+            {category.map((evt) => (
+              <Tab>
+                <button
+                  onClick={() => {
+                    toggleClass();
+                    setClickId(evt?.id);
+                  }}>
+                  {context.locale === "ru" ? evt?.name_ru : evt?.name_en}
+                </button>
+              </Tab>
+            ))}
             <div onClick={toggleClass} className="tab-closer"></div>
           </TabList>
           <TabPanel>
             <div className="offers">
-              {rest
-                .filter((item) => item.type === "Машинки")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
+              {rest?.map((item) => (
+                <Link to={"/product/" + item.id}>
+                  <div className="offer">
+                    <img
+                      src={
+                        "http://206.189.128.106:4444/api/uploads/images/" +
+                        item?.product_images[0].images_src
+                      }
+                      alt=""
+                    />
+                    <p>
+                      {context.locale === "ru"
+                        ? item?.title_ru
+                        : item?.title_en}
+                    </p>
+                    <span>
+                      <FormattedMessage id="sums" />
+                    </span>
+                    <div className="hover__offer">
+                      <span>Подробнее</span>
+                      <img src={"./img/home/cardar.svg"} alt="" />
                     </div>
-                  </Link>
-                ))}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="offers">
-              {rest
-                .filter((item) => item.type === "Конструкторы")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="offers">
-              {rest
-                .filter((item) => item.type === "девчонок")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="offers">
-              {rest
-                .filter((item) => item.type === "уморазвития")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="offers">
-              {rest
-                .filter((item) => item.type === "плашадок")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div className="offers">
-              {rest
-                .filter((item) => item.type === "Спортивные")
-                .map((item) => (
-                  <Link to={"/product/" + item.id}>
-                    <div className="offer">
-                      <img
-                        src={
-                          "https://api.dev.therepublicoftoys.uz" + item?.img1
-                        }
-                        alt=""
-                      />
-                      <p>
-                        {context.locale === "uz"
-                          ? item.title_uz
-                          : context.locale === "ru"
-                          ? item.title_ru
-                          : item.title_uz}
-                      </p>
-                      <span>
-                        <FormattedMessage id="sums" />
-                      </span>
-                      <div className="hover__offer">
-                        <span>Подробнее</span>
-                        <img src={"./img/home/cardar.svg"} alt="" />
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                  </div>
+                </Link>
+              ))}
             </div>
           </TabPanel>
         </div>
