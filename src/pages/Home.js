@@ -110,7 +110,7 @@ function Home() {
                       // <div className="card" data-aos="flip-left">
                       <img
                         src={
-                          "http://206.189.128.106:4444/api/uploads/images/" +
+                          "https://admin.dipsag.uz/api/uploads/images/" +
                           item?.image_src
                         }
                         className="logo-img"
