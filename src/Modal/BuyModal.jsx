@@ -71,7 +71,7 @@ function BuyModal() {
                     <img
                       className="like-img"
                       src={
-                        "http://206.189.128.106:4444/api/uploads/images/" +
+                        "https://admin.dipsag.uz/api/uploads/images/" +
                         item.images_src
                       }
                     />

@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     const axiosGet = async () => {
       const partner = await axios.get(
-        "http://206.189.128.106:4444/api/sliders"
+        "https://admin.dipsag.uz/api/sliders"
       );
       setPartner(partner?.data?.data);
     };
@@ -47,12 +47,11 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://206.189.128.106:4444/api/clients")
+      .get("https://admin.dipsag.uz/api/clients")
       .then((res) => setLogo(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(logo);
 
   return (
     <div className="home">
@@ -77,7 +76,7 @@ function Home() {
                   <div className="item__two">
                     <img
                       src={
-                        "http://206.189.128.106:4444/api/uploads/images/" +
+                        "https://admin.dipsag.uz/api/uploads/images/" +
                         evt?.src
                       }
                       alt="toys"

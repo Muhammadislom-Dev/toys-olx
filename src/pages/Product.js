@@ -12,7 +12,7 @@ function Product() {
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
-        "http://206.189.128.106:4444/api/products"
+        "https://admin.dipsag.uz/api/products"
       );
       setrest(response?.data?.data);
     };
@@ -28,7 +28,7 @@ function Product() {
   useEffect(() => {
     const axiosCategory = async () => {
       const response = await axios.get(
-        "http://206.189.128.106:4444/api/categories"
+        "https://admin.dipsag.uz/api/categories"
       );
       setCategory(response?.data?.data);
     };
@@ -73,7 +73,7 @@ function Product() {
                   <div className="offer">
                     <img
                       src={
-                        "http://206.189.128.106:4444/api/uploads/images/" +
+                        "https://admin.dipsag.uz/api/uploads/images/" +
                         item?.product_images[0].images_src
                       }
                       alt=""

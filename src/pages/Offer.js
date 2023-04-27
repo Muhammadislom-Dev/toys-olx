@@ -19,7 +19,7 @@ function Offer() {
   useEffect(() => {
     const axiosGet = async () => {
       const response = await axios.get(
-        "http://206.189.128.106:4444/api/products"
+        "https://admin.dipsag.uz/api/products"
       );
       setrest(response?.data?.data?.find((evt) => evt?.id === id));
     };
@@ -54,7 +54,7 @@ function Offer() {
                 <img
                   className={"img__one"}
                   src={
-                    "http://206.189.128.106:4444/api/uploads/images/" +
+                    "https://admin.dipsag.uz/api/uploads/images/" +
                     evt.images_src
                   }
                 />
